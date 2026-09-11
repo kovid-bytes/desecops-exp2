@@ -11,14 +11,21 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarqube-scan-action@v8.2.1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Install Bandit
         run: pip install bandit
 
-      - name: Scan Python code with Bandit
+      - name: Bandit Security Scan
         run: bandit -r . --exclude ./test_app.py
