@@ -1,4 +1,4 @@
-name: IaC Pipeline
+name: IaC Pipeline & Security Scan
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   terraform-check:
-    name: Terraform Init & Validate
+    name: Terraform Init, Validate & Checkov Security Scan
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +26,10 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+
+      - name: Run Checkov IaC Security Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          framework: terraform
+          output_format: cli
+          soft_fail: false
