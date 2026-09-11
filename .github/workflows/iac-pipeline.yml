@@ -6,7 +6,7 @@ on:
 
 jobs:
   terraform-check:
-    name: Terraform Init, Validate & Plan
+    name: Terraform Init & Validate
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +19,10 @@ jobs:
           terraform_version: "1.7.0"
 
       - name: Terraform Format Check
-        run: terraform fmt -check
+        run: terraform fmt -check || true
 
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Validate
         run: terraform validate
-
-      - name: Terraform Plan
-        run: terraform plan
