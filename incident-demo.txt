@@ -1,1 +1,1 @@
-SIMULATED_HARDCODED_CREDENTIAL = FAKE_VALUE_FOR_LAB_ONLY
+The simulated credential has been removed.
