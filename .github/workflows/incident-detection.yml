@@ -1,0 +1,24 @@
+name: Incident Detection Simulation
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  detect-incident:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for simulated credential
+        run: |
+          if [ -f incident-demo.txt ] && grep -nF "SIMULATED_HARDCODED_CREDENTIAL" incident-demo.txt; then
+            echo "Simulated incident detected!"
+            exit 1
+          else
+            echo "No simulated credential detected."
+          fi
